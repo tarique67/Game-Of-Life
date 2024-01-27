@@ -1,5 +1,8 @@
 package org.gameOfLife;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Board {
@@ -41,4 +44,23 @@ public class Board {
         return alivePopulationCountSet;
     }
 
+    public List<Cell> neighboursList(int row, int column) {
+        if(row>=10 || column>=10 || row<0 || column<0){
+            throw new IllegalArgumentException("Indices can not be negative.");
+        }
+        List<Cell> neighbours = new ArrayList<>();
+        if(row==0 && column == 0){
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row+1][column], cellsGrid[row+1][column+1]));
+        } else if(row==rows-1 && column==columns-1){
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row-1][column-1]));
+        } else if(row==0 && column==columns-1){
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row+1][column], cellsGrid[row+1][column-1]));
+        } else if(row==rows-1 && column==0){
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row-1][column], cellsGrid[row-1][column+1]));
+        } else {
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row][column+1], cellsGrid[row+1][column],
+                cellsGrid[row-1][column-1], cellsGrid[row+1][column+1], cellsGrid[row+1][column-1], cellsGrid[row-1][column+1]));
+        }
+        return neighbours;
+    }
 }

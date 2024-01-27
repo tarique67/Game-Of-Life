@@ -44,4 +44,32 @@ public class BoardTest {
         int expected = 10;
         assertEquals(expected, new Board(10,10).setRandomPopulation(10));
     }
+
+    @Test
+    void expectNeighboursCount8ForCell1_1OfBoard10x10() {
+        int expected = 8;
+        assertEquals(expected, new Board(10,10).neighboursList(1,1).size());
+    }
+
+    @Test
+    void expectNeighboursCount3ForCell0_0OfBoard10x10() {
+        int expected = 3;
+        assertEquals(expected, new Board(10,10).neighboursList(0,0).size());
+    }
+
+    @Test
+    void expectNeighboursCount3ForCell9_9OfBoard10x10() {
+        int expected = 3;
+        assertEquals(expected, new Board(10,10).neighboursList(9,9).size());
+    }
+
+    @Test
+    void expectExceptionForNegativeIndexPassedToGetNeighboursList() {
+        assertThrows(IllegalArgumentException.class, ()-> new Board(10,10).neighboursList(-1,-1));
+    }
+
+    @Test
+    void expectExceptionForIndexPassedToGetNeighboursListGreaterThanEqualToRowsColumns() {
+        assertThrows(IllegalArgumentException.class, ()-> new Board(10,10).neighboursList(10,10));
+    }
 }
