@@ -1,5 +1,7 @@
 package org.gameOfLife;
 
+import java.util.Random;
+
 public class Board {
 
     private final int rows;
@@ -15,13 +17,28 @@ public class Board {
         this.cellsGrid = new Cell[rows][columns];
     }
 
-    public int feedPopulation(double percentageSeed){
+    public int feedPopulationCount(double percentageSeed){
         int population = (int) Math.floor((percentageSeed/100 * (rows*columns)));
         if(population<1)
             throw new IllegalArgumentException("Population "+population+" for "+ percentageSeed+"% of rows and columns ");
         return population;
     }
 
-
+    public int setRandomPopulation(double percentageSeed){
+        int populationCount = feedPopulationCount(percentageSeed);
+        int alivePopulationCountSet = 0;
+        Random random = new Random(2);
+        for(int i=0; i<rows; i++){
+            for (int j=0; j<columns; j++){
+                if(random.nextInt(2) == 1 && populationCount-- > 0) {
+                    cellsGrid[i][j] = new Cell(i,j,State.ALIVE);
+                    alivePopulationCountSet++;
+                } else {
+                    cellsGrid[i][j] = new Cell(i, j, State.DEAD);
+                }
+            }
+        }
+        return alivePopulationCountSet;
+    }
 
 }
