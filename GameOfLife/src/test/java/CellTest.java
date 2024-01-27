@@ -28,14 +28,46 @@ public class CellTest {
     }
 
     @Test
-    void expectFalseForConditionSatisfiedToLiveWith2LiveNeighbours() {
+    void expectTrueForConditionSatisfiedToLiveWith2LiveNeighbours() {
         List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD));
         assertTrue(new Cell(1,0,State.ALIVE).conditionSatisfiedToLive(neighbours));
+    }
+
+    @Test
+    void expectFalseForConditionSatisfiedToLiveWith1LiveNeighbour() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.DEAD), new Cell(1,1,State.DEAD));
+        assertFalse(new Cell(1,0,State.ALIVE).conditionSatisfiedToLive(neighbours));
     }
 
     @Test
     void expectExceptionForConditionSatisfiedToLiveIfSameCellPassedInNeighboursList() {
         List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD), new Cell(1,0,State.ALIVE));
         assertThrows(IllegalArgumentException.class ,() -> new Cell(1,0,State.ALIVE).conditionSatisfiedToLive(neighbours));
+    }
+
+    @Test
+    void expectTrueForConditionSatisfiedToReLiveWith3LiveNeighbours() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.ALIVE));
+        assertTrue(new Cell(1,0,State.DEAD).conditionSatisfiedToReLive(neighbours));
+    }
+
+    @Test
+    void expectFalseForConditionSatisfiedToReLiveWith2LiveNeighbours() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD));
+        assertFalse(new Cell(1,0,State.DEAD).conditionSatisfiedToReLive(neighbours));
+    }
+
+    @Test
+    void expectExceptionForConditionSatisfiedToReLiveIfSameCellPassedInNeighboursList() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD), new Cell(1,0,State.ALIVE));
+        Exception exception = assertThrows(IllegalArgumentException.class ,() -> new Cell(1,0,State.DEAD).conditionSatisfiedToReLive(neighbours));
+        assertEquals("A cell can not be it's own neighbour.", exception.getMessage() );
+    }
+
+    @Test
+    void expectExceptionForConditionSatisfiedToReLiveIfCellAlreadyAlive() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD), new Cell(1,0,State.ALIVE));
+        Exception exception = assertThrows(IllegalArgumentException.class ,() -> new Cell(1,0,State.ALIVE).conditionSatisfiedToReLive(neighbours));
+        assertEquals("Alive cells can not re-live.", exception.getMessage() );
     }
 }
