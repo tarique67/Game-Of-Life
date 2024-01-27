@@ -1,5 +1,7 @@
 package org.gameOfLife;
 
+import java.util.List;
+
 public class Cell {
 
     private Integer row;
@@ -12,5 +14,14 @@ public class Cell {
         this.row = row;
         this.column = column;
         this.state = state;
+    }
+
+    public boolean conditionSatisfiedToLive(List<Cell> neighbours){
+        int liveNeighbours = 0;
+        for(Cell cell : neighbours){
+            if(cell.state.equals(State.ALIVE))
+                liveNeighbours++;
+        }
+        return liveNeighbours == 2 || liveNeighbours == 3;
     }
 }

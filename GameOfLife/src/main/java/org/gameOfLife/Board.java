@@ -1,13 +1,10 @@
 package org.gameOfLife;
 
-import java.util.Arrays;
-import java.util.Objects;
-
 public class Board {
 
     private final int rows;
     private final int columns;
-    private State[][] states;
+    private Cell[][] cellsGrid;
 
     public Board(int rows, int columns) {
         if(rows==0 || columns==0)
@@ -15,7 +12,7 @@ public class Board {
 
         this.rows = rows;
         this.columns = columns;
-        this.states = new State[rows][columns];
+        this.cellsGrid = new Cell[rows][columns];
     }
 
     public int feedPopulation(double percentageSeed){
