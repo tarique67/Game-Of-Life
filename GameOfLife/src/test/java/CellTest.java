@@ -13,4 +13,11 @@ public class CellTest {
             new Cell(0,0,State.DEAD);
         });
     }
+
+    @Test
+    void expectExceptionWhenCreatingCellWithNegativeRowOrColumn() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Cell(-1, 0, State.DEAD);
+        });
+    }
 }
