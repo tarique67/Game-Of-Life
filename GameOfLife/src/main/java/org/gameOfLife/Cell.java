@@ -19,6 +19,8 @@ public class Cell {
     public boolean conditionSatisfiedToLive(List<Cell> neighbours){
         int liveNeighbours = 0;
         for(Cell cell : neighbours){
+            if(cell.row==row && cell.column==column)
+                throw new IllegalArgumentException("A cell can not be it's own neighbour.");
             if(cell.state.equals(State.ALIVE))
                 liveNeighbours++;
         }

@@ -32,4 +32,10 @@ public class CellTest {
         List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD));
         assertTrue(new Cell(1,0,State.ALIVE).conditionSatisfiedToLive(neighbours));
     }
+
+    @Test
+    void expectExceptionForConditionSatisfiedToLiveIfSameCellPassedInNeighboursList() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD), new Cell(1,0,State.ALIVE));
+        assertThrows(IllegalArgumentException.class ,() -> new Cell(1,0,State.ALIVE).conditionSatisfiedToLive(neighbours));
+    }
 }
