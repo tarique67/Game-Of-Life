@@ -16,7 +16,7 @@ public class Cell {
         this.state = state;
     }
 
-    public boolean conditionSatisfiedToLive(List<Cell> neighbours){
+    public boolean conditionSatisfiedToLive(List<Cell> neighbours) {
         int liveNeighbours = 0;
         for(Cell cell : neighbours){
             if(cell.row==row && cell.column==column)
@@ -38,5 +38,17 @@ public class Cell {
                 liveNeighbours++;
         }
         return liveNeighbours == 3;
+    }
+
+    public boolean switchState(List<Cell> neighbours) {
+        if(state.equals(State.DEAD) && conditionSatisfiedToReLive(neighbours)){
+            state = State.ALIVE;
+            return true;
+        }
+        if(state.equals(State.ALIVE) && !conditionSatisfiedToLive(neighbours)) {
+            state = State.DEAD;
+            return true;
+        }
+        return false;
     }
 }

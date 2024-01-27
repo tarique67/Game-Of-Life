@@ -70,4 +70,28 @@ public class CellTest {
         Exception exception = assertThrows(IllegalArgumentException.class ,() -> new Cell(1,0,State.ALIVE).conditionSatisfiedToReLive(neighbours));
         assertEquals("Alive cells can not re-live.", exception.getMessage() );
     }
+
+    @Test
+    void expectTrueForSwitchStateOfDeadCellWith3LiveCellsPassedAsNeighbours() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.ALIVE));
+        assertTrue(new Cell(1,0, State.DEAD).switchState(neighbours));
+    }
+
+    @Test
+    void expectTrueForSwitchStateOfAliveCellWith1AliveCellPassedInNeighbours() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.DEAD), new Cell(1,1,State.DEAD));
+        assertTrue(new Cell(1,0, State.ALIVE).switchState(neighbours));
+    }
+
+    @Test
+    void expectFalseForSwitchStateOfAliveCellWith2AliveCellPassedInNeighbours() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD));
+        assertFalse(new Cell(1,0, State.ALIVE).switchState(neighbours));
+    }
+
+    @Test
+    void expectExceptionForSwitchStateOfAliveCellIfSameCellPassedInNeighboursList() {
+        List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD));
+        assertThrows(IllegalArgumentException.class,() -> new Cell(0,0, State.ALIVE).switchState(neighbours));
+    }
 }
