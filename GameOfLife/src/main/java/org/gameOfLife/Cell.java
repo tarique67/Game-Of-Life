@@ -1,11 +1,12 @@
 package org.gameOfLife;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Cell {
 
-    private Integer row;
-    private Integer column;
+    private final Integer row;
+    private final Integer column;
     private State state;
 
     public Cell(Integer row, Integer column, State state) {
@@ -14,6 +15,19 @@ public class Cell {
         this.row = row;
         this.column = column;
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return Objects.equals(row, cell.row) && Objects.equals(column, cell.column) && state == cell.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column, state);
     }
 
     public boolean conditionSatisfiedToLive(List<Cell> neighbours) {

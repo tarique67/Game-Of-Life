@@ -94,4 +94,16 @@ public class CellTest {
         List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.DEAD));
         assertThrows(IllegalArgumentException.class,() -> new Cell(0,0, State.ALIVE).switchState(neighbours));
     }
+
+    @Test
+    void expect2CellToBeEqualWithSameIndicesAndState() {
+        Cell cell = new Cell(1,1, State.DEAD);
+        assertEquals(cell, new Cell(1,1,State.DEAD));
+    }
+
+    @Test
+    void expect2CellToNotBeEqualWithDifferentIndicesAndState() {
+        Cell cell = new Cell(1,1, State.DEAD);
+        assertNotEquals(cell, new Cell(0,0,State.ALIVE));
+    }
 }
