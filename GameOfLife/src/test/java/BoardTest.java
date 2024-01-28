@@ -72,4 +72,16 @@ public class BoardTest {
     void expectExceptionForIndexPassedToGetNeighboursListGreaterThanEqualToRowsColumns() {
         assertThrows(IllegalArgumentException.class, ()-> new Board(10,10).neighboursList(10,10));
     }
+
+    @Test
+    void expectNeighboursCount5ForCell6_9OfBoard10x10() {
+        int expected = 5;
+        assertEquals(expected, new Board(10,10).neighboursList(6,9).size());
+    }
+
+    @Test
+    void expectNeighboursCount5ForCell0_6OfBoard10x10() {
+        int expected = 5;
+        assertEquals(expected, new Board(10,10).neighboursList(6,9).size());
+    }
 }

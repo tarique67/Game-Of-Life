@@ -57,6 +57,14 @@ public class Board {
             neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row+1][column], cellsGrid[row+1][column-1]));
         } else if(row==rows-1 && column==0){
             neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row-1][column], cellsGrid[row-1][column+1]));
+        } else if(row==0 && column>0){
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row][column-1], cellsGrid[row+1][column], cellsGrid[row+1][column+1], cellsGrid[row+1][column-1]));
+        } else if(row==rows-1 && column>0){
+            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row-1][column+1], cellsGrid[row-1][column-1]));
+        } else if(row>0 && column==0){
+            neighbours.addAll(Arrays.asList(cellsGrid[row+1][column], cellsGrid[row-1][column], cellsGrid[row][column+1], cellsGrid[row-1][column+1], cellsGrid[row+1][column+1]));
+        } else if(row>0 && column==columns-1){
+            neighbours.addAll(Arrays.asList(cellsGrid[row+1][column], cellsGrid[row-1][column], cellsGrid[row][column-1], cellsGrid[row-1][column-1], cellsGrid[row+1][column-1]));
         } else {
             neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row][column+1], cellsGrid[row+1][column],
                 cellsGrid[row-1][column-1], cellsGrid[row+1][column+1], cellsGrid[row+1][column-1], cellsGrid[row-1][column+1]));
