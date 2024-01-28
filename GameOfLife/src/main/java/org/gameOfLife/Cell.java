@@ -65,4 +65,8 @@ public class Cell {
         }
         return false;
     }
+
+    public boolean isDead() {
+        return this.state==State.DEAD;
+    }
 }

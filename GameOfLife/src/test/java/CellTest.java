@@ -106,4 +106,10 @@ public class CellTest {
         Cell cell = new Cell(1,1, State.DEAD);
         assertNotEquals(cell, new Cell(0,0,State.ALIVE));
     }
+
+    @Test
+    void expectTrueForIsDeadIfCellStateIsDead() {
+        Cell cell = new Cell(2,5,State.DEAD);
+        assertTrue(cell.isDead());
+    }
 }
