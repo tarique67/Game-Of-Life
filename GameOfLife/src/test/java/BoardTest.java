@@ -84,4 +84,15 @@ public class BoardTest {
         board.setRandomPopulation(50);
         assertFalse(board.allCellDead());
     }
+
+    @Test
+    void expectBoardToBeTestedToBeEqualToBoardUnderTestWhenBothEvolve() {
+        Board expectedBoard = new Board(2,2);
+        expectedBoard.setRandomPopulation(30);
+        Board boardUnderTest = new Board(2,2);
+        boardUnderTest.setRandomPopulation(30);
+        expectedBoard.evolve();
+        boardUnderTest.evolve();
+        assertEquals(expectedBoard, boardUnderTest);
+    }
 }

@@ -1,9 +1,6 @@
 package org.gameOfLife;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Board {
 
@@ -18,6 +15,21 @@ public class Board {
         this.rows = rows;
         this.columns = columns;
         this.cellsGrid = new Cell[rows][columns];
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return rows == board.rows && columns == board.columns && Arrays.deepEquals(cellsGrid, board.cellsGrid);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(rows, columns);
+        result = 31 * result + Arrays.hashCode(cellsGrid);
+        return result;
     }
 
     public int feedPopulationCount(double percentageSeed){
@@ -79,5 +91,13 @@ public class Board {
             }
         }
         return deadCellCount==rows*columns;
+    }
+
+    public void evolve() {
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<columns; j++){
+                cellsGrid[i][j].switchState(neighboursList(i,j));
+            }
+        }
     }
 }
