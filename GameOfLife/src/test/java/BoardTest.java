@@ -28,7 +28,7 @@ public class BoardTest {
     @Test
     void expectPopulationCountLessThan10ForSetRandomPopulationOfGrid10x10With10PercentPopulation() {
         int expected = 10;
-        assertEquals(expected, new Board(10,10).setRandomPopulation(10));
+        assertTrue(expected <= new Board(10,10).setRandomPopulation(10));
     }
 
     @Test

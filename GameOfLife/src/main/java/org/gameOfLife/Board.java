@@ -33,13 +33,13 @@ public class Board {
     }
 
     public int feedPopulationCount(double percentageSeed){
-        return (int) Math.floor((percentageSeed/100 * (rows*columns)));
+        return (int) ((percentageSeed/100) * (rows*columns));
     }
 
     public int setRandomPopulation(double percentageSeed){
         int populationCount = feedPopulationCount(percentageSeed);
         int alivePopulationCountSet = 0;
-        Random random = new Random(2);
+        Random random = new Random();
         for(int i=0; i<rows; i++){
             for (int j=0; j<columns; j++){
                 if(random.nextInt(2) == 1 && populationCount-- > 0) {
@@ -104,7 +104,7 @@ public class Board {
     public void print(){
         for(int i=0; i<rows; i++){
             for(int j=0; j<columns; j++){
-                System.out.print(cellsGrid[i][j].isDead() ? State.DEAD.getSateString() : State.ALIVE.getSateString());
+                System.out.print(cellsGrid[i][j].isDead() ? State.DEAD.getSateString()+" " : State.ALIVE.getSateString()+" ");
             }
             System.out.println();
         }
