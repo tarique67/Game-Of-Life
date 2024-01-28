@@ -54,8 +54,8 @@ public class Board {
     }
 
     public List<Cell> neighboursList(int row, int column) {
-        if(row>=10 || column>=10 || row<0 || column<0){
-            throw new IllegalArgumentException("Indices can not be negative.");
+        if(row>=rows || column>=columns || row<0 || column<0){
+            throw new IllegalArgumentException("Indices can not be negative or greater than total rows and columns.");
         }
         List<Cell> neighbours = new ArrayList<>();
         if(row==0 && column == 0){
@@ -98,6 +98,15 @@ public class Board {
             for(int j=0; j<columns; j++){
                 cellsGrid[i][j].switchState(neighboursList(i,j));
             }
+        }
+    }
+
+    public void print(){
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<columns; j++){
+                System.out.print(cellsGrid[i][j].isDead() ? State.DEAD.getSateString() : State.ALIVE.getSateString());
+            }
+            System.out.println();
         }
     }
 }
