@@ -26,20 +26,6 @@ public class BoardTest {
     }
 
     @Test
-    public void expectExceptionWhenFeedingPopulation50ForGrid1x1(){
-        assertThrows(IllegalArgumentException.class, () ->{
-           new Board(1,1).feedPopulationCount(50);
-        });
-    }
-
-    @Test
-    public void expectExceptionWhenFeedingPopulation30ForGrid3x1(){
-        assertThrows(IllegalArgumentException.class, () ->{
-            new Board(1,1).feedPopulationCount(50);
-        });
-    }
-
-    @Test
     void expectPopulationCountLessThan10ForSetRandomPopulationOfGrid10x10With10PercentPopulation() {
         int expected = 10;
         assertEquals(expected, new Board(10,10).setRandomPopulation(10));
@@ -83,5 +69,19 @@ public class BoardTest {
     void expectNeighboursCount5ForCell0_6OfBoard10x10() {
         int expected = 5;
         assertEquals(expected, new Board(10,10).neighboursList(6,9).size());
+    }
+
+    @Test
+    void expectTrueForAllCellsDeadWithBoardOfAllDeadCells() {
+        Board board = new Board(3,3);
+        board.setRandomPopulation(0);
+        assertTrue(board.allCellDead());
+    }
+
+    @Test
+    void expectFalseForAllCellsDeadWithBoardOfSomeAliveCells() {
+        Board board = new Board(3,3);
+        board.setRandomPopulation(50);
+        assertFalse(board.allCellDead());
     }
 }

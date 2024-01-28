@@ -21,10 +21,7 @@ public class Board {
     }
 
     public int feedPopulationCount(double percentageSeed){
-        int population = (int) Math.floor((percentageSeed/100 * (rows*columns)));
-        if(population<1)
-            throw new IllegalArgumentException("Population "+population+" for "+ percentageSeed+"% of rows and columns ");
-        return population;
+        return (int) Math.floor((percentageSeed/100 * (rows*columns)));
     }
 
     public int setRandomPopulation(double percentageSeed){
@@ -70,5 +67,17 @@ public class Board {
                 cellsGrid[row-1][column-1], cellsGrid[row+1][column+1], cellsGrid[row+1][column-1], cellsGrid[row-1][column+1]));
         }
         return neighbours;
+    }
+
+    public boolean allCellDead() {
+        int deadCellCount = 0;
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<columns; j++){
+                if(cellsGrid[i][j].equals(new Cell(i,j,State.DEAD))){
+                    deadCellCount++;
+                }
+            }
+        }
+        return deadCellCount==rows*columns;
     }
 }
