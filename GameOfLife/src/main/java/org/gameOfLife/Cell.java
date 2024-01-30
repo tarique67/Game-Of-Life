@@ -79,4 +79,16 @@ public class Cell {
     public boolean isDead() {
         return this.state==State.DEAD;
     }
+
+    public int getAliveNeighbours(Cell[][] grid) {
+        int count = 0;
+        for(int i=0; i<neighboursLocations.length; i++){
+            int row = neighboursLocations[i][0];
+            int column = neighboursLocations[i][1];
+            if(row>=0 && column>=0 && row< grid.length && column<grid[0].length)
+                if(grid[row][column].state == State.ALIVE)
+                    count++;
+        }
+        return count;
+    }
 }

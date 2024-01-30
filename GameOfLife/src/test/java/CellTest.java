@@ -22,6 +22,22 @@ public class CellTest {
     }
 
     @Test
+    void expect3LiveNeighboursWhenPassed2x2GridOfAllLiveCells() {
+        Cell[][] grid = new Cell[][]{{new Cell(0,0,State.ALIVE),new Cell(0,1,State.ALIVE)},
+                {new Cell(1,0,State.ALIVE),new Cell(1,1,State.ALIVE)}};
+        int expected = 3;
+        assertEquals(expected, grid[0][0].getAliveNeighbours(grid));
+    }
+
+    @Test
+    void expect0LiveNeighboursWhenPassed2x2GridOf1LiveA3DeadCells() {
+        Cell[][] grid = new Cell[][]{{new Cell(0,0,State.ALIVE),new Cell(0,1,State.DEAD)},
+                {new Cell(1,0,State.DEAD),new Cell(1,1,State.DEAD)}};
+        int expected = 0;
+        assertEquals(expected, grid[0][0].getAliveNeighbours(grid));
+    }
+
+    @Test
     void expectTrueForConditionSatisfiedToLiveWith3LiveNeighbours() {
         List<Cell> neighbours = Arrays.asList(new Cell(0,0,State.ALIVE), new Cell(0,1,State.ALIVE), new Cell(1,1,State.ALIVE));
         assertTrue(new Cell(1,0,State.ALIVE).conditionSatisfiedToLive(neighbours));
