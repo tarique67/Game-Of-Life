@@ -7,7 +7,7 @@ public class Cell {
 
     private final Integer row;
     private final Integer column;
-    private State state;
+    private final State state;
     private int[][] neighboursLocations;
 
     public Cell(Integer row, Integer column, State state) {
@@ -40,46 +40,6 @@ public class Cell {
         return Objects.hash(row, column, state);
     }
 
-    public boolean conditionSatisfiedToLive(List<Cell> neighbours) {
-        int liveNeighbours = 0;
-        for(Cell cell : neighbours){
-            if(cell.row==row && cell.column==column)
-                throw new IllegalArgumentException("A cell can not be it's own neighbour.");
-            if(cell.state.equals(State.ALIVE))
-                liveNeighbours++;
-        }
-        return liveNeighbours == 2 || liveNeighbours == 3;
-    }
-
-    public boolean conditionSatisfiedToReLive(List<Cell> neighbours) {
-        if(state.equals(State.ALIVE))
-            throw new IllegalArgumentException("Alive cells can not re-live.");
-        int liveNeighbours = 0;
-        for(Cell cell : neighbours){
-            if(cell.row==row && cell.column==column)
-                throw new IllegalArgumentException("A cell can not be it's own neighbour.");
-            if(cell.state.equals(State.ALIVE))
-                liveNeighbours++;
-        }
-        return liveNeighbours == 3;
-    }
-
-    public boolean switchState(List<Cell> neighbours) {
-        if(state.equals(State.DEAD) && conditionSatisfiedToReLive(neighbours)){
-            state = State.ALIVE;
-            return true;
-        }
-        if(state.equals(State.ALIVE) && !conditionSatisfiedToLive(neighbours)) {
-            state = State.DEAD;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isDead() {
-        return this.state==State.DEAD;
-    }
-
     public int getAliveNeighbours(Cell[][] grid) {
         int count = 0;
         for(int i=0; i<neighboursLocations.length; i++){
@@ -90,5 +50,19 @@ public class Cell {
                     count++;
         }
         return count;
+    }
+
+    public Cell evolve(int liveNeighbours) {
+        if(state.equals(State.DEAD) && liveNeighbours==3){
+            return new Cell(this.row, this.column, State.ALIVE);
+        }
+        if(state.equals(State.ALIVE) && liveNeighbours>=2 && liveNeighbours<=3) {
+            return new Cell(this.row, this.column, State.ALIVE);
+        }
+        return new Cell(this.row, this.column, State.DEAD);
+    }
+
+    public boolean isDead() {
+        return this.state==State.DEAD;
     }
 }

@@ -96,7 +96,7 @@ public class Board {
     public void evolve() {
         for(int i=0; i<rows; i++){
             for(int j=0; j<columns; j++){
-                cellsGrid[i][j].switchState(neighboursList(i,j));
+//                cellsGrid[i][j].evolve(neighboursList(i,j));
             }
         }
     }
