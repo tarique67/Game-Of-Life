@@ -17,21 +17,6 @@ public class Board {
         this.cellsGrid = new Cell[rows][columns];
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Board board = (Board) o;
-        return rows == board.rows && columns == board.columns && Arrays.deepEquals(cellsGrid, board.cellsGrid);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(rows, columns);
-        result = 31 * result + Arrays.hashCode(cellsGrid);
-        return result;
-    }
-
     public int feedPopulationCount(double percentageSeed){
         return (int) ((percentageSeed/100) * (rows*columns));
     }
@@ -40,12 +25,17 @@ public class Board {
         int populationCount = feedPopulationCount(percentageSeed);
         int alivePopulationCountSet = 0;
         Random random = new Random();
+        while(alivePopulationCountSet<populationCount){
+            int row = random.nextInt(rows);
+            int column = random.nextInt(columns);
+            if(cellsGrid[row][column]==null){
+                cellsGrid[row][column] = new Cell(row,column,State.ALIVE);
+                alivePopulationCountSet++;
+            }
+        }
         for(int i=0; i<rows; i++){
             for (int j=0; j<columns; j++){
-                if(random.nextInt(2) == 1 && populationCount-- > 0) {
-                    cellsGrid[i][j] = new Cell(i,j,State.ALIVE);
-                    alivePopulationCountSet++;
-                } else {
+                if(cellsGrid[i][j]==null) {
                     cellsGrid[i][j] = new Cell(i, j, State.DEAD);
                 }
             }

@@ -1,10 +1,7 @@
 import org.gameOfLife.Board;
-import org.gameOfLife.Cell;
-import org.gameOfLife.State;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class BoardTest {
 
@@ -29,7 +26,7 @@ public class BoardTest {
     }
 
     @Test
-    void expectPopulationCountLessThan10ForSetRandomPopulationOfGrid10x10With10PercentPopulation() {
+    void expectPopulationCount10ForSetRandomPopulationOfGrid10x10With10PercentPopulation() {
         int expected = 10;
         assertTrue(expected <= new Board(10,10).setRandomPopulation(10));
     }
@@ -54,5 +51,13 @@ public class BoardTest {
         board.setRandomPopulation(1);
         board.nextGeneration();
         assertTrue(board.allCellDead());
+    }
+
+    @Test
+    void expectFalseForAllCellDeadOnNextGenerationFor10x10GridWith100PercentPopulation() {
+        Board board = new Board(10,10);
+        board.setRandomPopulation(100);
+        board.nextGeneration();
+        assertFalse(board.allCellDead());
     }
 }
