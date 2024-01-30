@@ -1,6 +1,5 @@
 package org.gameOfLife;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Cell {
@@ -52,7 +51,8 @@ public class Cell {
         return count;
     }
 
-    public Cell evolve(int liveNeighbours) {
+    public Cell evolve(Cell[][] grid) {
+        int liveNeighbours = getAliveNeighbours(grid);
         if(state.equals(State.DEAD) && liveNeighbours==3){
             return new Cell(this.row, this.column, State.ALIVE);
         }

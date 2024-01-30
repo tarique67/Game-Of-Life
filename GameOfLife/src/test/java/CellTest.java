@@ -50,27 +50,24 @@ public class CellTest {
     void expectAliveCellWhenDeadCellEvolvedWith3LiveCellsNeighbours() {
         Cell[][] grid = new Cell[][]{{new Cell(0,0,State.DEAD),new Cell(0,1,State.ALIVE)},
                 {new Cell(1,0,State.ALIVE),new Cell(1,1,State.ALIVE)}};
-        int neighbours = grid[0][0].getAliveNeighbours(grid);
         Cell expected = new Cell(0,0, State.ALIVE);
-        assertEquals(expected, grid[0][0].evolve(neighbours));
+        assertEquals(expected, grid[0][0].evolve(grid));
     }
 
     @Test
     void expectDeadCellWhenAliveCellEvolvedWith1AliveCellPassedInNeighbours() {
         Cell[][] grid = new Cell[][]{{new Cell(0,0,State.ALIVE),new Cell(0,1,State.DEAD)},
                 {new Cell(1,0,State.DEAD),new Cell(1,1,State.DEAD)}};
-        int neighbours = grid[0][0].getAliveNeighbours(grid);
         Cell expected = new Cell(0,0, State.DEAD);
-        assertEquals(expected, grid[0][0].evolve(neighbours));
+        assertEquals(expected, grid[0][0].evolve(grid));
     }
 
     @Test
     void expectAliveCellWhenAliveCellEvolvedWith2AliveCellPassedInNeighbours() {
         Cell[][] grid = new Cell[][]{{new Cell(0,0,State.ALIVE),new Cell(0,1,State.ALIVE)},
                 {new Cell(1,0,State.DEAD),new Cell(1,1,State.ALIVE)}};
-        int neighbours = grid[0][0].getAliveNeighbours(grid);
         Cell expected = new Cell(0,0, State.ALIVE);
-        assertEquals(expected, grid[0][0].evolve(neighbours));
+        assertEquals(expected, grid[0][0].evolve(grid));
     }
 
     @Test
