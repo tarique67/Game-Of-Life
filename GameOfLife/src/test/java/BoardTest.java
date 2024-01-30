@@ -1,7 +1,10 @@
 import org.gameOfLife.Board;
+import org.gameOfLife.Cell;
+import org.gameOfLife.State;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class BoardTest {
 
@@ -32,46 +35,6 @@ public class BoardTest {
     }
 
     @Test
-    void expectNeighboursCount8ForCell1_1OfBoard10x10() {
-        int expected = 8;
-        assertEquals(expected, new Board(10,10).neighboursList(1,1).size());
-    }
-
-    @Test
-    void expectNeighboursCount3ForCell0_0OfBoard10x10() {
-        int expected = 3;
-        assertEquals(expected, new Board(10,10).neighboursList(0,0).size());
-    }
-
-    @Test
-    void expectNeighboursCount3ForCell9_9OfBoard10x10() {
-        int expected = 3;
-        assertEquals(expected, new Board(10,10).neighboursList(9,9).size());
-    }
-
-    @Test
-    void expectExceptionForNegativeIndexPassedToGetNeighboursList() {
-        assertThrows(IllegalArgumentException.class, ()-> new Board(10,10).neighboursList(-1,-1));
-    }
-
-    @Test
-    void expectExceptionForIndexPassedToGetNeighboursListGreaterThanEqualToRowsColumns() {
-        assertThrows(IllegalArgumentException.class, ()-> new Board(10,10).neighboursList(10,10));
-    }
-
-    @Test
-    void expectNeighboursCount5ForCell6_9OfBoard10x10() {
-        int expected = 5;
-        assertEquals(expected, new Board(10,10).neighboursList(6,9).size());
-    }
-
-    @Test
-    void expectNeighboursCount5ForCell0_6OfBoard10x10() {
-        int expected = 5;
-        assertEquals(expected, new Board(10,10).neighboursList(6,9).size());
-    }
-
-    @Test
     void expectTrueForAllCellsDeadWithBoardOfAllDeadCells() {
         Board board = new Board(3,3);
         board.setRandomPopulation(0);
@@ -86,13 +49,10 @@ public class BoardTest {
     }
 
     @Test
-    void expectBoardToBeTestedToBeEqualToBoardUnderTestWhenBothEvolve() {
-        Board expectedBoard = new Board(2,2);
-        expectedBoard.setRandomPopulation(30);
-        Board boardUnderTest = new Board(2,2);
-        boardUnderTest.setRandomPopulation(30);
-        expectedBoard.evolve();
-        boardUnderTest.evolve();
-        assertEquals(expectedBoard, boardUnderTest);
+    void expectAllCellDeadOnNextGenerationFor10x10GridWith1PercentPopulation() {
+        Board board = new Board(10,10);
+        board.setRandomPopulation(1);
+        board.nextGeneration();
+        assertTrue(board.allCellDead());
     }
 }

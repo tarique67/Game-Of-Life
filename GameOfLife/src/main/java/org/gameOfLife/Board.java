@@ -53,34 +53,6 @@ public class Board {
         return alivePopulationCountSet;
     }
 
-    public List<Cell> neighboursList(int row, int column) {
-        if(row>=rows || column>=columns || row<0 || column<0){
-            throw new IllegalArgumentException("Indices can not be negative or greater than total rows and columns.");
-        }
-        List<Cell> neighbours = new ArrayList<>();
-        if(row==0 && column == 0){
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row+1][column], cellsGrid[row+1][column+1]));
-        } else if(row==rows-1 && column==columns-1){
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row-1][column-1]));
-        } else if(row==0 && column==columns-1){
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row+1][column], cellsGrid[row+1][column-1]));
-        } else if(row==rows-1 && column==0){
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row-1][column], cellsGrid[row-1][column+1]));
-        } else if(row==0 && column>0){
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row][column-1], cellsGrid[row+1][column], cellsGrid[row+1][column+1], cellsGrid[row+1][column-1]));
-        } else if(row==rows-1 && column>0){
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column+1], cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row-1][column+1], cellsGrid[row-1][column-1]));
-        } else if(row>0 && column==0){
-            neighbours.addAll(Arrays.asList(cellsGrid[row+1][column], cellsGrid[row-1][column], cellsGrid[row][column+1], cellsGrid[row-1][column+1], cellsGrid[row+1][column+1]));
-        } else if(row>0 && column==columns-1){
-            neighbours.addAll(Arrays.asList(cellsGrid[row+1][column], cellsGrid[row-1][column], cellsGrid[row][column-1], cellsGrid[row-1][column-1], cellsGrid[row+1][column-1]));
-        } else {
-            neighbours.addAll(Arrays.asList(cellsGrid[row][column-1], cellsGrid[row-1][column], cellsGrid[row][column+1], cellsGrid[row+1][column],
-                cellsGrid[row-1][column-1], cellsGrid[row+1][column+1], cellsGrid[row+1][column-1], cellsGrid[row-1][column+1]));
-        }
-        return neighbours;
-    }
-
     public boolean allCellDead() {
         int deadCellCount = 0;
         for(int i=0; i<rows; i++){
@@ -93,10 +65,10 @@ public class Board {
         return deadCellCount==rows*columns;
     }
 
-    public void evolve() {
+    public void nextGeneration() {
         for(int i=0; i<rows; i++){
             for(int j=0; j<columns; j++){
-//                cellsGrid[i][j].evolve(neighboursList(i,j));
+                cellsGrid[i][j] = cellsGrid[i][j].evolve(cellsGrid);
             }
         }
     }
