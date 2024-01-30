@@ -16,7 +16,7 @@ public class Simulator {
         while(!board.allCellDead() && continueSimulation){
             System.out.println("Iteration "+iteration++);
             board.print();
-            board.evolve();
+            board.nextGeneration();
             System.out.println();
             if(board.allCellDead())
                 System.out.println("All cells died. Game ended.");
