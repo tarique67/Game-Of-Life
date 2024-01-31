@@ -12,12 +12,12 @@ public class Simulator {
         Scanner scanner = new Scanner(System.in);
         Board board = takeInputAndInitializeBoard(scanner);
         int iteration = 1;
+        board.print();
         boolean continueSimulation = true;
         while(!board.allCellDead() && continueSimulation){
             System.out.println("Iteration "+iteration++);
-            board.print();
             board.nextGeneration();
-            System.out.println();
+            board.print();
             if(board.allCellDead())
                 System.out.println("All cells died. Game ended.");
             else{
