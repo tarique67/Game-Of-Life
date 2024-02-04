@@ -21,7 +21,7 @@ public class Board {
         return (int) ((percentageSeed/100) * (rows*columns));
     }
 
-    public int setRandomPopulation(double percentageSeed){
+    public void setRandomPopulation(double percentageSeed){
         int populationCount = feedPopulationCount(percentageSeed);
         int alivePopulationCountSet = 0;
         Random random = new Random();
@@ -33,6 +33,10 @@ public class Board {
                 alivePopulationCountSet++;
             }
         }
+        feedDeadCells();
+    }
+
+    private void feedDeadCells() {
         for(int i=0; i<rows; i++){
             for (int j=0; j<columns; j++){
                 if(cellsGrid[i][j]==null) {
@@ -40,7 +44,6 @@ public class Board {
                 }
             }
         }
-        return alivePopulationCountSet;
     }
 
     public boolean allCellDead() {
