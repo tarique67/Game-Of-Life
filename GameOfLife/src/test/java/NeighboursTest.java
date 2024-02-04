@@ -19,12 +19,33 @@ public class NeighboursTest {
     }
 
     @Test
-    void expectValidNeighboursCoordinates() {
+    void expectValidNeighboursCoordinatesForCellAt0_0() {
         Neighbours neighbours = new Neighbours(0,0);
         List<int[]> expected = new ArrayList<>();
         expected.add(new int[]{0,1});
         expected.add(new int[]{1,0});
         expected.add(new int[]{1,1});
+
+        List<int[]> neighboursCoordinates = neighbours.validNeighboursCoordinates(3,3);
+
+        for(int i=0; i<neighboursCoordinates.size(); i++){
+            assertEquals(expected.get(i)[0], neighboursCoordinates.get(i)[0]);
+            assertEquals(expected.get(i)[1], neighboursCoordinates.get(i)[1]);
+        }
+    }
+
+    @Test
+    void expectValidNeighboursCoordinatesForCellAt1_1() {
+        Neighbours neighbours = new Neighbours(1,1);
+        List<int[]> expected = new ArrayList<>();
+        expected.add(new int[]{1,0});
+        expected.add(new int[]{0,1});
+        expected.add(new int[]{1,2});
+        expected.add(new int[]{2,1});
+        expected.add(new int[]{0,0});
+        expected.add(new int[]{2,2});
+        expected.add(new int[]{2,0});
+        expected.add(new int[]{0,2});
 
         List<int[]> neighboursCoordinates = neighbours.validNeighboursCoordinates(3,3);
 
