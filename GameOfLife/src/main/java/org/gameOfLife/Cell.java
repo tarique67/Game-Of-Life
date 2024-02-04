@@ -1,5 +1,6 @@
 package org.gameOfLife;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Cell {
@@ -7,7 +8,7 @@ public class Cell {
     private final Integer row;
     private final Integer column;
     private final State state;
-    private int[][] neighboursLocations;
+//    private int[][] neighboursLocations;
 
     public Cell(Integer row, Integer column, State state) {
         if(row < 0 || column < 0)
@@ -15,15 +16,15 @@ public class Cell {
         this.row = row;
         this.column = column;
         this.state = state;
-        this.neighboursLocations = new int[8][2];
-        this.neighboursLocations[0] = new int[]{row, column-1};
-        this.neighboursLocations[1] = new int[]{row-1, column};
-        this.neighboursLocations[2] = new int[]{row, column+1};
-        this.neighboursLocations[3] = new int[]{row+1, column};
-        this.neighboursLocations[4] = new int[]{row-1, column-1};
-        this.neighboursLocations[5] = new int[]{row+1, column+1};
-        this.neighboursLocations[6] = new int[]{row+1, column-1};
-        this.neighboursLocations[7] = new int[]{row-1, column+1};
+//        this.neighboursLocations = new int[8][2];
+//        this.neighboursLocations[0] = new int[]{row, column-1};
+//        this.neighboursLocations[1] = new int[]{row-1, column};
+//        this.neighboursLocations[2] = new int[]{row, column+1};
+//        this.neighboursLocations[3] = new int[]{row+1, column};
+//        this.neighboursLocations[4] = new int[]{row-1, column-1};
+//        this.neighboursLocations[5] = new int[]{row+1, column+1};
+//        this.neighboursLocations[6] = new int[]{row+1, column-1};
+//        this.neighboursLocations[7] = new int[]{row-1, column+1};
     }
 
     @Override
@@ -39,20 +40,17 @@ public class Cell {
         return Objects.hash(row, column, state);
     }
 
-    public int getAliveNeighbours(Cell[][] grid) {
+    public int getAliveNeighbours(List<Cell> neighbours) {
         int count = 0;
-        for(int i=0; i<neighboursLocations.length; i++){
-            int row = neighboursLocations[i][0];
-            int column = neighboursLocations[i][1];
-            if(row>=0 && column>=0 && row< grid.length && column<grid[0].length)
-                if(grid[row][column].state == State.ALIVE)
-                    count++;
+        for(Cell neighbour : neighbours) {
+            if(neighbour.state == State.ALIVE)
+                count++;
         }
         return count;
     }
 
-    public Cell evolve(Cell[][] grid) {
-        int liveNeighbours = getAliveNeighbours(grid);
+    public Cell evolve(List<Cell> neighbours) {
+        int liveNeighbours = getAliveNeighbours(neighbours);
         if(state.equals(State.DEAD) && liveNeighbours==3){
             return new Cell(this.row, this.column, State.ALIVE);
         }

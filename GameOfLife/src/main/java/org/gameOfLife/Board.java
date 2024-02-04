@@ -61,7 +61,10 @@ public class Board {
     public void nextGeneration() {
         for(int i=0; i<rows; i++){
             for(int j=0; j<columns; j++){
-                cellsGrid[i][j] = cellsGrid[i][j].evolve(cellsGrid);
+                List<int[]> neighboursCoordinates = new Neighbours(i,j).validNeighboursCoordinates(rows, columns);
+                List<Cell> neighbourCells = neighboursCoordinates.stream().map( coordinates ->cellsGrid[coordinates[0]][coordinates[1]]).toList();
+
+                cellsGrid[i][j] = cellsGrid[i][j].evolve(neighbourCells);
             }
         }
     }
