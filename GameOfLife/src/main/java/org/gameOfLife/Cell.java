@@ -8,7 +8,6 @@ public class Cell {
     private final Integer row;
     private final Integer column;
     private final State state;
-//    private int[][] neighboursLocations;
 
     public Cell(Integer row, Integer column, State state) {
         if(row < 0 || column < 0)
@@ -16,15 +15,6 @@ public class Cell {
         this.row = row;
         this.column = column;
         this.state = state;
-//        this.neighboursLocations = new int[8][2];
-//        this.neighboursLocations[0] = new int[]{row, column-1};
-//        this.neighboursLocations[1] = new int[]{row-1, column};
-//        this.neighboursLocations[2] = new int[]{row, column+1};
-//        this.neighboursLocations[3] = new int[]{row+1, column};
-//        this.neighboursLocations[4] = new int[]{row-1, column-1};
-//        this.neighboursLocations[5] = new int[]{row+1, column+1};
-//        this.neighboursLocations[6] = new int[]{row+1, column-1};
-//        this.neighboursLocations[7] = new int[]{row-1, column+1};
     }
 
     @Override
