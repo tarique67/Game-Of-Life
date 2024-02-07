@@ -1,5 +1,7 @@
 package org.gameOfLife;
 
+import org.gameOfLife.exceptions.StableStateReachedException;
+
 public class Simulator {
     public static void main(String[] args) {
         new Simulator().start();
@@ -11,7 +13,12 @@ public class Simulator {
         int iteration = 0;
         inputOutput.print(board,iteration++);
         while(!board.allCellDead()){
-            board.nextGeneration();
+            try {
+                board.nextGeneration();
+            } catch (StableStateReachedException e) {
+                System.out.println("-------------" + e.getMessage() + "-------------");
+                System.exit(0);
+            }
             inputOutput.print(board, iteration++);
         }
     }

@@ -1,4 +1,5 @@
 import org.gameOfLife.Board;
+import org.gameOfLife.exceptions.StableStateReachedException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,7 +42,7 @@ public class BoardTest {
     }
 
     @Test
-    void expectAllCellDeadOnNextGenerationFor10x10GridWith1PercentPopulation() {
+    void expectAllCellDeadOnNextGenerationFor10x10GridWith1PercentPopulation() throws StableStateReachedException {
         Board board = new Board(10,10, 1);
 
         board.nextGeneration();
@@ -50,7 +51,7 @@ public class BoardTest {
     }
 
     @Test
-    void expectFalseForAllCellDeadOnNextGenerationFor10x10GridWith100PercentPopulation() {
+    void expectFalseForAllCellDeadOnNextGenerationFor10x10GridWith100PercentPopulation() throws StableStateReachedException {
         Board board = new Board(10,10, 100);
 
         board.nextGeneration();
@@ -59,11 +60,25 @@ public class BoardTest {
     }
 
     @Test
-    void expectAllCellDeadOnNextGenerationFor2x2GridWith25PercentPopulation() {
+    void expectAllCellDeadOnNextGenerationFor2x2GridWith25PercentPopulation() throws StableStateReachedException {
         Board board = new Board(2,2, 25);
 
         board.nextGeneration();
 
         assertTrue(board.allCellDead());
+    }
+
+    @Test
+    void expectExceptionWhenStableStateReached() {
+        Board board = new Board(2,2, 100);
+
+        assertThrows(StableStateReachedException.class, ()-> board.nextGeneration());
+    }
+
+    @Test
+    void expectNoExceptionWhenStableStateNotReached() {
+        Board board = new Board(2,2, 25);
+
+        assertDoesNotThrow(()-> board.nextGeneration());
     }
 }

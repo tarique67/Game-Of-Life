@@ -1,5 +1,7 @@
 package org.gameOfLife;
 
+import org.gameOfLife.exceptions.StableStateReachedException;
+
 import java.util.*;
 
 public class Board {
@@ -58,15 +60,20 @@ public class Board {
         return deadCellCount==rows*columns;
     }
 
-    public void nextGeneration() {
+    public void nextGeneration() throws StableStateReachedException {
+        Cell[][] nextGrid = new Cell[rows][columns];
         for(int i=0; i<rows; i++){
             for(int j=0; j<columns; j++){
                 List<int[]> neighboursCoordinates = new Neighbours(i,j).validNeighboursCoordinates(rows, columns);
                 List<Cell> neighbourCells = neighboursCoordinates.stream().map( coordinates ->cellsGrid[coordinates[0]][coordinates[1]]).toList();
 
-                cellsGrid[i][j] = cellsGrid[i][j].evolve(neighbourCells);
+                nextGrid[i][j] = cellsGrid[i][j].evolve(neighbourCells);
             }
         }
+        if(Arrays.deepEquals(cellsGrid,nextGrid))
+            throw new StableStateReachedException("Reached a stable state.");
+
+        cellsGrid = nextGrid;
     }
 
     public void print(){
