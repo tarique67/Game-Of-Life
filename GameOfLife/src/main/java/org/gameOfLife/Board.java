@@ -72,7 +72,7 @@ public class Board {
     public void print(){
         for(int i=0; i<rows; i++){
             for(int j=0; j<columns; j++){
-                System.out.print(cellsGrid[i][j].isDead() ? State.DEAD.getSateString()+" " : State.ALIVE.getSateString()+" ");
+                System.out.print(cellsGrid[i][j].isDead() ? State.DEAD.getStateString()+" " : State.ALIVE.getStateString()+" ");
             }
             System.out.println();
         }

@@ -30,7 +30,7 @@ public class Cell {
         return Objects.hash(row, column, state);
     }
 
-    public int getAliveNeighbours(List<Cell> neighbours) {
+    private int getAliveNeighbours(List<Cell> neighbours) {
         int count = 0;
         for(Cell neighbour : neighbours) {
             if(neighbour.state == State.ALIVE)

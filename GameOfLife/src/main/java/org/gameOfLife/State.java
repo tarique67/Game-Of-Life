@@ -9,7 +9,7 @@ public enum State {
         this.sateString = s;
     }
 
-    public String getSateString() {
+    public String getStateString() {
         return sateString;
     }
 

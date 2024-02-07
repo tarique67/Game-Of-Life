@@ -20,7 +20,7 @@ public class BoardTest {
     }
 
     @Test
-    void expectFalseForAllDeadCellsWhenRandomPopulationSet10() {
+    void expectFalseForAllDeadCellsWhenPercentageAliveCellsIs10() {
         Board board = new Board(10,10, 10);
 
         assertFalse(board.allCellDead());
@@ -56,5 +56,14 @@ public class BoardTest {
         board.nextGeneration();
 
         assertFalse(board.allCellDead());
+    }
+
+    @Test
+    void expectAllCellDeadOnNextGenerationFor2x2GridWith25PercentPopulation() {
+        Board board = new Board(2,2, 25);
+
+        board.nextGeneration();
+
+        assertTrue(board.allCellDead());
     }
 }

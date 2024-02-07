@@ -17,8 +17,13 @@ public class CellTest {
     }
 
     @Test
-    void expectExceptionWhenCreatingCellWithNegativeRowOrColumn() {
+    void expectExceptionWhenCreatingCellWithNegativeRow() {
         assertThrows(IllegalArgumentException.class, () -> new Cell(-1, 0, State.DEAD));
+    }
+
+    @Test
+    void expectExceptionWhenCreatingCellWithNegativeColumn() {
+        assertThrows(IllegalArgumentException.class, () -> new Cell(0, -1, State.DEAD));
     }
 
     @Test
@@ -36,27 +41,39 @@ public class CellTest {
     }
 
     @Test
-    void expect3LiveNeighboursWhenPassedListOf3AllLiveCells() {
+    void expectTrueForIsDeadIfCellStateIsDead() {
+        Cell cell = new Cell(2,5,State.DEAD);
+
+        assertTrue(cell.isDead());
+    }
+
+    @Test
+    void expectFalseForIsDeadIfCellStateIsDead() {
+        Cell cell = new Cell(2,5,State.ALIVE);
+
+        assertFalse(cell.isDead());
+    }
+
+    @Test
+    void expect3LiveNeighboursWhenPassedListOf3AliveCells() {
         Cell cell = new Cell(0,0,State.DEAD);
         List<Cell> neighbours = new ArrayList<>();
         neighbours.add(new Cell(0,1,State.ALIVE));
         neighbours.add(new Cell(1,1,State.ALIVE));
         neighbours.add(new Cell(1,0,State.ALIVE));
-        int expected = 3;
 
-        assertEquals(expected, cell.getAliveNeighbours(neighbours));
+        assertEquals(new Cell(0,0,State.ALIVE), cell.evolve(neighbours));
     }
 
     @Test
-    void expect0LiveNeighboursWhenPassed2x2GridOf1LiveA3DeadCells() {
+    void expect0LiveNeighboursWhenPassed3DeadCellsAsNeighbours() {
         Cell cell = new Cell(0,0,State.DEAD);
         List<Cell> neighbours = new ArrayList<>();
         neighbours.add(new Cell(0,1,State.DEAD));
         neighbours.add(new Cell(1,1,State.DEAD));
         neighbours.add(new Cell(1,0,State.DEAD));
-        int expected = 0;
 
-        assertEquals(expected, cell.getAliveNeighbours(neighbours));
+        assertEquals(new Cell(0,0,State.DEAD), cell.evolve(neighbours));
     }
 
     @Test
@@ -95,9 +112,4 @@ public class CellTest {
         assertEquals(expected, cell.evolve(neighbours));
     }
 
-    @Test
-    void expectTrueForIsDeadIfCellStateIsDead() {
-        Cell cell = new Cell(2,5,State.DEAD);
-        assertTrue(cell.isDead());
-    }
 }
