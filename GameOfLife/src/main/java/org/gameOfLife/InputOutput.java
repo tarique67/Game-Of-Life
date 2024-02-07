@@ -11,14 +11,25 @@ public class InputOutput {
     }
 
     public Board takeInputAndInitializeBoard(){
-        System.out.println("Enter no. of rows.");
-        int rows = scanner.nextInt();
-        System.out.println("Enter no. of columns.");
-        int columns = scanner.nextInt();
-        System.out.println("Enter population feed percentage.");
-        double percentageFeed = scanner.nextDouble();
-        scanner.nextLine();
-        return new Board(rows,columns,percentageFeed);
+        while (true) {
+            try{
+                System.out.println("Enter no. of rows.");
+                int rows = scanner.nextInt();
+                System.out.println("Enter no. of columns.");
+                int columns = scanner.nextInt();
+                System.out.println("Enter population feed percentage.");
+                double percentageFeed = scanner.nextDouble();
+                if(percentageFeed>100 || percentageFeed<0){
+                    System.out.println("Feed percentage should be between 0 and 100.");
+                    continue;
+                }
+                scanner.nextLine();
+                return new Board(rows,columns,percentageFeed);
+            }catch (Exception exception){
+                scanner.nextLine();
+                System.out.println("Please enter valid row, column and seeding percentage. Only numbers allowed. ");
+            }
+        }
     }
 
     public void print(Board board, int iteration) {
