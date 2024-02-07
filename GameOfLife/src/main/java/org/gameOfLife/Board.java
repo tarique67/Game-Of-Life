@@ -8,29 +8,29 @@ public class Board {
     private final int columns;
     private Cell[][] cellsGrid;
 
-    public Board(int rows, int columns) {
+    public Board(int rows, int columns, double percentageAliveCells) {
         if(rows==0 || columns==0)
             throw new IllegalArgumentException("Rows and columns cannot be zero.");
 
         this.rows = rows;
         this.columns = columns;
         this.cellsGrid = new Cell[rows][columns];
+        setRandomPopulation(percentageAliveCells);
     }
 
-    public int feedPopulationCount(double percentageSeed){
+    private int feedPopulationCount(double percentageSeed){
         return (int) ((percentageSeed/100) * (rows*columns));
     }
 
-    public void setRandomPopulation(double percentageSeed){
-        int populationCount = feedPopulationCount(percentageSeed);
-        int alivePopulationCountSet = 0;
+    private void setRandomPopulation(double percentageSeed){
+        int alivePopulationCount = feedPopulationCount(percentageSeed);
         Random random = new Random();
-        while(alivePopulationCountSet<populationCount){
+        while(alivePopulationCount>0){
             int row = random.nextInt(rows);
             int column = random.nextInt(columns);
             if(cellsGrid[row][column]==null){
                 cellsGrid[row][column] = new Cell(row,column,State.ALIVE);
-                alivePopulationCountSet++;
+                alivePopulationCount--;
             }
         }
         feedDeadCells();

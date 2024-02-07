@@ -9,10 +9,10 @@ public class Simulator {
         InputOutput inputOutput = new InputOutput();
         Board board = inputOutput.takeInputAndInitializeBoard();
         int iteration = 0;
-        inputOutput.printOutput(board,iteration++);
+        inputOutput.print(board,iteration++);
         while(!board.allCellDead()){
             board.nextGeneration();
-            inputOutput.printOutput(board, iteration++);
+            inputOutput.print(board, iteration++);
         }
     }
 

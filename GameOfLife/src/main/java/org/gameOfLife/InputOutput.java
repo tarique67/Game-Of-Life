@@ -18,12 +18,10 @@ public class InputOutput {
         System.out.println("Enter population feed percentage.");
         double percentageFeed = scanner.nextDouble();
         scanner.nextLine();
-        Board board = new Board(rows,columns);
-        board.setRandomPopulation(percentageFeed);
-        return board;
+        return new Board(rows,columns,percentageFeed);
     }
 
-    public void printOutput(Board board, int iteration) {
+    public void print(Board board, int iteration) {
         System.out.println("Iteration " + iteration);
         board.print();
         if(board.allCellDead())
